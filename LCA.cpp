@@ -11,6 +11,7 @@ void dfs(int u, int p){
     dp[0][u] = p;
     tin[u] = ++timer;
     for (auto v : g[u]){
+        if (v == p) continue;
         dfs(v, u);
     }
     tout[u] = ++timer;
@@ -40,9 +41,10 @@ int main(){
     g.assign(n+1, vector<int>());
 
     for (int i = 2; i <= n; i++){
-        int boss;
-        cin >> boss;
-        g[boss].push_back(i);
+        int a, b;
+        cin >> a >> b;
+        g[a].push_back(b);
+        g[b].push_back(a);
     }
     // very careful, parent of root has to be root
     dfs(1, 1);  // parent of root is root
